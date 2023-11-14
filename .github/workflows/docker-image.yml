@@ -14,6 +14,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Login to Azure CR
+      run: docker login oversightdatascrapercr.azurecr.io -u oversightdatascrapercr -p ${{ env.AZURE_CR_ADMIN_PASS }}
     - name: Build the Docker image
       run: docker build -t oversightdatascrapercr.azurecr.io/oversight-data-scraper:v1 .
     - name: Push to Azure CR
