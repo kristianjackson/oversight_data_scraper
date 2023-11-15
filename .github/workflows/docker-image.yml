@@ -1,4 +1,4 @@
-name: Build Docker and Deploy to Azure Container Instance
+name: Build Server and Frontend and Deploy to Azure Container Instance
 
 on:
   push:
@@ -16,11 +16,15 @@ jobs:
     - uses: actions/checkout@v3
     - name: Login to Azure CR
       run: docker login oversightdatascrapercr.azurecr.io -u oversightdatascrapercr -p ${{ secrets.AZURE_CR_ADMIN_PASS }}
-      working-directory: ./api_server
-    - name: Build the Docker image
+    - name: Build the Server image
       run: docker build -t oversightdatascrapercr.azurecr.io/oversight-data-scraper:v1 .
       working-directory: ./api_server
-    - name: Push to Azure CR
+    - name: Push to Server to Azure CR
       run: docker push oversightdatascrapercr.azurecr.io/oversight-data-scraper:v1
       working-directory: ./api_server
-      
+    - name: Build the Frontend image
+      run: docker build -t oversightdatascrapercr.azurecr.io/oversight-data-scraper:v1 .
+      working-directory: ./api_frontend
+    - name: Push to Frontend to Azure CR
+      run: docker push oversightdatascrapercr.azurecr.io/oversight-data-scraper:v1
+      working-directory: ./api_frontend
