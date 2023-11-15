@@ -44,6 +44,10 @@ async def scrape_pages(base_url, total_pages):
                     })
     return all_data
 
+@app.get("/")
+def root_website():
+    return ("Oversight.gov Data Scraper. Please use the /scrape endpoint")
+
 @app.get("/scrape")
 async def scrape_data():
     base_url = "https://www.oversight.gov/reports?field_address_country=All&field_component_agency_[0]=322&items_per_page=60"
